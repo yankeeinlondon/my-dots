@@ -45,5 +45,5 @@ o.completeopt = 'menuone,noselect'
 
 -- VIM Commands
 vim.cmd [[
-let g:markdown_fenced_languages = ['javascript','json', 'html', 'typescript', 'rust', 'bash', 'lua', 'vue']
+let g:markdown_fenced_languages = ['javascript','json', 'html', 'typescript', 'rust', 'bash', 'lua', 'vue', 'python']
 ]]
