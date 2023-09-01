@@ -1,59 +1,17 @@
--- nvim-cmp setup
-local ok, cmp = pcall(require, "cmp")
-if not ok then
-	vim.notify "Could not load cmp in userland config!"
-	return
-end
+return {
+	"hrsh7th/nvim-cmp",
+	event = "InsertEnter",
+	dependencies = {
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"onsails/lspkind.nvim",
+		"L3MON4D3/LuaSnip",
+		"saadparwaiz1/cmp_luasnip",
+		"rafamadriz/friendly-snippets"
+	},
+	config = function()
 
-local snip_ok, luasnip = pcall(require, "luasnip")
-if not snip_ok then
-	vim.notify "Could not load luasnip in the userland configuration for cmp!"
-	return
-end
-
--- local vs_ok, from_vscode = pcall(require, "from_vscode")
--- if not vs_ok then
--- 	vim.notify("Could not load the 'from_vscode' loader from luasnip while starting userland cmp config!")
--- 	return
--- end
---
--- from_vscode.lazy_load()
-
-local check_backspace = function()
-	local col = vim.fn.col "." - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-end
-
---   פּ ﯟ   some other good icons
-local kind_icons = {
-	Text = "",
-	Method = "m",
-	Function = "",
-	Constructor = "",
-	Field = "",
-	Variable = "",
-	Class = "",
-	Interface = "",
-	Module = "",
-	Property = "",
-	Unit = "",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-}
-
-cmp.setup {
+cmp.setup({
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -131,4 +89,9 @@ cmp.setup {
 			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 		},
 	},
+})
+
+
+	end,
 }
+

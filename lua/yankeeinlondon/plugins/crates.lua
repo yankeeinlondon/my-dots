@@ -1,8 +1,4 @@
-local ok, crates = pcall(require, "crates")
-if not ok then
-	vim.notify("Unable to load userland crates.nvim configuration?")
-end
-
+return {
 crates.setup {
 	smart_insert = true,
 	insert_closing_quote = true,
@@ -139,4 +135,5 @@ crates.setup {
 		enabled = false,
 		name = "Crates",
 	},
+}
 }

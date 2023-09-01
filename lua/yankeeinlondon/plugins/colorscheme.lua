@@ -1,11 +1,8 @@
-local colorscheme = "tokyonight"
+return {
+	"awesome-vim-colorschemes",
+	priority = 1000,
+	config = function()
+		vim.cmd([[colorscheme.onedark]])
+	end,
 
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-	vim.notify("the colorscheme " .. colorscheme .. " is not installed")
-	return
-end
-
--- vim.cmd [[
--- colorscheme tokyonight
--- ]]
+}
