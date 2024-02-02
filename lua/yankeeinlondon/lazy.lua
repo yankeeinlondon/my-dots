@@ -12,11 +12,14 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-  { import = "yankeeinlondon.plugins" } , { import = "yankeeinlondon.plugins.lsp" } },
+require("lazy").setup(
+  {
+    { import = "yankeeinlondon.plugins" },
+    { import = "yankeeinlondon.plugins.lsp" },
+  },
   {
     install = {
-      colorscheme = { "nightfly" },
+      colorscheme = { "onedark" },
     },
     checker = {
       enabled = true,

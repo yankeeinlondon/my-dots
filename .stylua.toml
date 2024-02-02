@@ -4,5 +4,3 @@ indent_type = "Spaces"
 indent_width = 4
 quote_style = "AutoPreferDouble"
 no_call_parentheses = true
-indent_type = "Spaces"
-ddindent_width = 2

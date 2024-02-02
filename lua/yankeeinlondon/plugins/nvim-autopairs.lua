@@ -5,7 +5,7 @@ return {
   config = function()
     local npairs = require("nvim-autopairs")
     
-    npairs.setup ({
+    npairs.setup({
       check_ts = true,
       ts_config = {
         lua = { "string", "source" },
@@ -26,9 +26,9 @@ return {
       },
     })
 
-    local cmp = require("hrsh7th/nvim-cmp")
+    -- local cmp = require("cmp")
 
-    cmp.event:on("confirm_done", npairs.completion.cmp.on_confirm_done {  map_char = { tex = "" }  })
+    -- cmp.event:on("confirm_done", npairs.completion.cmp.on_confirm_done {  map_char = { tex = "" }  })
 
   end,
 }

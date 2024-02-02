@@ -25,5 +25,5 @@ return {
 			{ desc = "Go to next harpoon mark" }
 		)
 
-	end
+	end,
 }
