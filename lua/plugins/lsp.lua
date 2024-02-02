@@ -174,9 +174,23 @@ return {
 				border = "rounded",
 				sources = {
 					-- formatting
+					formatting.eslint_d.with({
+						condition = function(utils)
+							return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json", ".eslintrc.mjs" })
+						end,
+					}),
 					formatting.prettier,
+					formatting.yamlfmt,
 					formatting.stylua,
 					formatting.ocamlformat,
+					formatting.rustfmt.with({
+						condition = function(utils)
+							return utils.root_has_file({ 
+								"cargo.toml"
+							})
+						end,
+					}),
+					formatting.nginx_beautifier,
 
 					-- diagnostics
 					diagnostics.eslint_d.with({
@@ -184,6 +198,13 @@ return {
 							return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
 						end,
 					}),
+					diagnostics.markdownlint.with({
+						MD025 = false,
+						MD013 = false,
+						MD033 = false,
+						MD026 = false,
+					}),
+					diagnostics.ansiblelint,
 
 					-- code actions
 					code_actions.eslint_d.with({

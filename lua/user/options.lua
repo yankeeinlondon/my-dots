@@ -118,7 +118,7 @@ vim.opt.foldenable = true
 vim.opt.scrolloff = 8
 
 -- Place a column line
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
 
 -- Always show the sign column
 vim.opt.signcolumn = "yes"
