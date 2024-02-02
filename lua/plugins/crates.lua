@@ -1,8 +1,10 @@
 return {
-	"crates",
-	setup = function()
+	'saecki/crates.nvim',
+    tag = 'stable',
+	events = { "BufRead Cargo.toml" },
+	config = function()
 
-    local crates = require("crates")
+		local crates = require("crates")
 
 		crates.setup({
 			smart_insert = true,
@@ -10,7 +12,6 @@ return {
 			avoid_prerelease = true,
 			autoload = true,
 		  autoupdate = true,
-		  autoupdate_throttle = 250,
 		  loading_indicator = true,
 		  date_format = "%Y-%m-%d",
 		  thousands_separator = ".",

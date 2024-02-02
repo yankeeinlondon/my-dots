@@ -1,12 +1,12 @@
 return {
-	"indent_blankline",
+	"lukas-reineke/indent-blankline.nvim",
+	event = "BufEnter",
+	main = "ibl",
 	setup = function()
 		require('indent_blankline').setup {
-		char = '┊',
-		show_trailing_blankline_indent = false,
+			char = '┊',
+			show_trailing_blankline_indent = false,
 		}
-
-
 
 		vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 		vim.g.indent_blankline_filetype_exclude = {

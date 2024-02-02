@@ -1,3 +1,4 @@
-require("yankeeinlondon.core.keymaps")
-require("yankeeinlondon.core.options")
+require("user.options")
+require("user.lazy")
+require("user.keymaps")
 
