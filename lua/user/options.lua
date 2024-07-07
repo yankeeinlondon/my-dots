@@ -12,7 +12,7 @@ wo.signcolumn = 'yes'
 wo.relativenumber = true
 
 -- Explorer
-vim.g.loaded_netrw = 1 -- disable
+vim.g.loaded_netrw = 1       -- disable
 vim.g.loaded_netrwPlugin = 1 -- disable
 -- True Colors
 o.termguicolors = true
@@ -105,6 +105,10 @@ vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- Enable cursor line highlight
 vim.opt.cursorline = true
+-- Set cursor to blink in insert mode
+vim.cmd [[
+let &t_SI = "\e[5 q"
+]]
 
 -- Set fold settings
 -- These options were reccommended by nvim-ufo

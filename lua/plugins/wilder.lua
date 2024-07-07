@@ -1,58 +1,94 @@
 return {
-	{
-		"gelguy/wilder.nvim",
-		keys = {
-			":",
-			"/",
-			"?",
-		},
-		dependencies = {
+  {
+    "gelguy/wilder.nvim",
+    keys = {
+      ":",
+      "/",
+      "?",
+    },
+    dependencies = {
+      "romgrk/fzy-lua-native",
+      "sharkdp/fd",
+      "nvim-tree/nvim-web-devicons"
+    },
+    config = function()
+      local wilder = require('wilder')
+      wilder.setup({ modes = { ':', '/', '?' } })
 
-			"catppuccin/nvim",
-		},
-		config = function()
-			local wilder = require("wilder")
-			local macchiato = require("catppuccin.palettes").get_palette("macchiato")
+      wilder.set_option('pipeline', {
+        wilder.branch(
+          wilder.python_file_finder_pipeline({
+            file_command = function(_, arg)
+              if string.find(arg, '.') ~= nil then
+                return { 'fdfind', '-tf', '-H' }
+              else
+                return { 'fdfind', '-tf' }
+              end
+            end,
+            dir_command = { 'fd', '-td' },
+            filters = { 'cpsm_filter' },
+          }),
+          wilder.substitute_pipeline({
+            pipeline = wilder.python_search_pipeline({
+              skip_cmdtype_check = 1,
+              pattern = wilder.python_fuzzy_pattern({
+                start_at_boundary = 0,
+              }),
+            }),
+          }),
+          wilder.cmdline_pipeline({
+            fuzzy = 2,
+            fuzzy_filter = wilder.lua_fzy_filter(),
+          }),
+          {
+            wilder.check(function(_, x) return x == '' end),
+            wilder.history(),
+          },
+          wilder.python_search_pipeline({
+            pattern = wilder.python_fuzzy_pattern({
+              start_at_boundary = 0,
+            }),
+          })
+        ),
+      })
 
-			-- Create a highlight group for the popup menu
-			local text_highlight =
-				wilder.make_hl("WilderText", { { a = 1 }, { a = 1 }, { foreground = macchiato.text } })
-			local mauve_highlight =
-				wilder.make_hl("WilderMauve", { { a = 1 }, { a = 1 }, { foreground = macchiato.mauve } })
+      local highlighters = {
+        wilder.pcre2_highlighter(),
+        wilder.lua_fzy_highlighter(),
+      }
 
-			-- Enable wilder when pressing :, / or ?
-			wilder.setup({ modes = { ":", "/", "?" } })
+      local popupmenu_renderer = wilder.popupmenu_renderer(
+        wilder.popupmenu_border_theme({
+          border = 'rounded',
+          empty_message = wilder.popupmenu_empty_message_with_spinner(),
+          highlighter = highlighters,
+          left = {
+            ' ',
+            wilder.popupmenu_devicons(),
+            wilder.popupmenu_buffer_flags({
+              flags = ' a + ',
+              icons = { ['+'] = '', a = '', h = '' },
+            }),
+          },
+          right = {
+            ' ',
+            wilder.popupmenu_scrollbar(),
+          },
+        })
+      )
 
-			-- Enable fuzzy matching for commands and buffers
-			wilder.set_option("pipeline", {
-				wilder.branch(
-					wilder.cmdline_pipeline({
-						fuzzy = 1,
-					}),
-					wilder.vim_search_pipeline({
-						fuzzy = 1,
-					})
-				),
-			})
+      local wildmenu_renderer = wilder.wildmenu_renderer({
+        highlighter = highlighters,
+        separator = ' · ',
+        left = { ' ', wilder.wildmenu_spinner(), ' ' },
+        right = { ' ', wilder.wildmenu_index() },
+      })
 
-			wilder.set_option(
-				"renderer",
-				wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
-					highlighter = wilder.basic_highlighter(),
-					highlights = {
-						default = text_highlight,
-						border = mauve_highlight,
-						accent = mauve_highlight,
-					},
-					pumblend = 5,
-					min_width = "100%",
-					min_height = "25%",
-					max_height = "25%",
-					border = "rounded",
-					left = { " ", wilder.popupmenu_devicons() },
-					right = { " ", wilder.popupmenu_scrollbar() },
-				}))
-			)
-		end,
-	},
+      wilder.set_option('renderer', wilder.renderer_mux({
+        [':'] = popupmenu_renderer,
+        ['/'] = wildmenu_renderer,
+        substitute = wildmenu_renderer,
+      }))
+    end,
+  },
 }
