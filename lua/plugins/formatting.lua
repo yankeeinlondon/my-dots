@@ -1,5 +1,6 @@
 return {
-  "steveearc/conform.nvim",
+  {
+  "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
@@ -16,9 +17,16 @@ return {
         yaml = { "yamlfmt" },
       },
       format_on_save = {
-        lsp_fallback = true,
-        async = true
-      }
+        -- I recommend these options. See :help conform.format for details.
+        lsp_format = "fallback",
+        timeout_ms = 500,
+      },
+      -- If this is set, Conform will run the formatter asynchronously after save.
+      -- It will pass the table to conform.format().
+      -- This can also be a function that returns the table.
+      format_after_save = {
+        lsp_format = "fallback",
+      },
     })
 
     vim.keymap.set(
@@ -27,4 +35,5 @@ return {
       end
     )
   end
+}
 }

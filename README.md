@@ -1,4 +1,4 @@
- NVIM Configuration
+# NVIM Configuration
 
 This configuration uses [Lazy](https://github.com/folke/lazy.nvim) to load all plugins and provides a modular structure that
 hopes to stay maintainable.

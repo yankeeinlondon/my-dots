@@ -1,5 +1,4 @@
 return {
-	{
 		"kevinhwang91/nvim-ufo",
 		event = "BufEnter",
 		dependencies = {
@@ -13,5 +12,4 @@ return {
 				end,
 			})
 		end,
-	},
 }

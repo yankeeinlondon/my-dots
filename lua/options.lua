@@ -1,52 +1,3 @@
--- [[ Setting options ]]
--- See `:help vim.o`
-
--- add "-" so that dasherized variables are selected as one word
-vim.opt.iskeyword:append "-"
-local o = vim.o
-local wo = vim.wo
-
--- Make line numbers default
-wo.number = true
-wo.signcolumn = 'yes'
-wo.relativenumber = true
-
--- Explorer
-vim.g.loaded_netrw = 1       -- disable
-vim.g.loaded_netrwPlugin = 1 -- disable
--- True Colors
-o.termguicolors = true
--- whitespace
-o.expandtab = true
-o.smartindent = true
-o.tabstop = 2
-o.shiftwidth = 2
-o.softtabstop = 2
--- vim.o.clipboard:append "unnammedplus"
-
--- Set highlight on search
-o.hlsearch = false
-
--- Enable mouse mode
-o.mouse = 'a'
--- Enable break indent
-o.breakindent = true
--- Save undo history
-o.undofile = true
--- Case insensitive searching UNLESS /C or capital in search
-o.ignorecase = true
-o.smartcase = true
-
--- Decrease update time
-o.updatetime = 250
-
--- Set completeopt to have a better completion experience
-o.completeopt = 'menuone,noselect'
-
--- VIM Commands
-vim.cmd [[
-let g:markdown_fenced_languages = ['javascript','json', 'html', 'typescript', 'rust', 'bash', 'lua', 'vue', 'python']
-]]
 -- Enable relative line numbers
 vim.opt.nu = true
 vim.opt.rnu = true
@@ -105,10 +56,6 @@ vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- Enable cursor line highlight
 vim.opt.cursorline = true
--- Set cursor to blink in insert mode
-vim.cmd [[
-let &t_SI = "\e[5 q"
-]]
 
 -- Set fold settings
 -- These options were reccommended by nvim-ufo
@@ -122,7 +69,19 @@ vim.opt.foldenable = true
 vim.opt.scrolloff = 8
 
 -- Place a column line
-vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "80"
 
 -- Always show the sign column
 vim.opt.signcolumn = "yes"
+
+-- Disable vim-kitty-navigator default mappings
+-- vim.g.kitty_navigator_no_mappings = 1
+
+vim.opt.guicursor = {
+	"n-v-c:block", -- Normal, visual, command-line: block cursor
+	"i-ci-ve:ver25", -- Insert, command-line insert, visual-exclude: vertical bar cursor with 25% width
+	"r-cr:hor20", -- Replace, command-line replace: horizontal bar cursor with 20% height
+	"o:hor50", -- Operator-pending: horizontal bar cursor with 50% height
+	"a:blinkwait700-blinkoff400-blinkon250", -- All modes: blinking settings
+	"sm:block-blinkwait175-blinkoff150-blinkon175", -- Showmatch: block cursor with specific blinking settings
+}
